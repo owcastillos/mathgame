@@ -1,15 +1,29 @@
 <div class="acontainer">
   <mat-card>
-    <mat-card-content>
+    <mat-card-title *ngIf="isAll">
+      <span class="equal">Felicitaciones.<br>Eso es todo por hoy.</span>
+    </mat-card-title>
+    <mat-card-content *ngIf="!isAll">
       <div class="acontainercol">
         <div class="acontainerrow">
           <mat-form-field class="input-expression">
-            <input type="number" matInput>
+            <input disabled type="text" matInput [(ngModel)]="expression.operation">
           </mat-form-field>
           <span class="equal">=</span>
           <mat-form-field class="input-result">
-            <input type="number" matInput>
+            <input id="result" type="number" matInput [(ngModel)]="expression.result" autofocus>
           </mat-form-field>
+        </div>
+        <button *ngIf="showVerify" mat-raised-button (click)="evalExpression()">Comprobar</button>
+        <div *ngIf="!showVerify" class="acontainerrow">
+          <div *ngIf="showCorrect" class="acontainercol">
+            <img src="../../../assets/happy.png" />
+            <button color="primary" mat-raised-button (click)="setExpression()">Siguiente</button>
+          </div>
+          <div *ngIf="!showCorrect" class="acontainercol">
+            <img src="../../../assets/wrong.png" />
+            <button color="warn" mat-raised-button (click)="retry()">Volver a intentar</button>
+          </div>
         </div>
       </div>
     </mat-card-content>
